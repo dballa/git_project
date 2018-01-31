@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+                                         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+ <session-factory name="">
+  <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+  <property name="hibernate.connection.password">123openB</property>
+  <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/brandmanagment</property>
+  <property name="hibernate.connection.username">root</property>
+  <property name="hibernate.dialect">org.hibernate.dialect.MySQLInnoDBDialect</property>
+  <property name="hibernate.current_session_context_class">thread</property>
+  <property name="hbm2ddl.auto">update</property>
+  <property name="show_sql">true</property>
+  <property name="format_sql">true</property>
+  <mapping class="al.ikubinfo.academy.data.entity.UserEntity"/>
+  <mapping class="al.ikubinfo.academy.data.entity.DepartmentEntity"/>
+  <mapping class="al.ikubinfo.academy.data.entity.CompanyEntity"/>
+  <mapping class="al.ikubinfo.academy.data.entity.BrandEntity"/>
+  <mapping class="al.ikubinfo.academy.data.entity.BrandSectorEntity"/>
+  <mapping class="al.ikubinfo.academy.data.entity.BrandSectorEntityPK"/>
+  <mapping class="al.ikubinfo.academy.data.entity.ContactEntity"/>
+  <mapping class="al.ikubinfo.academy.data.entity.DepartmentBrandEntity"/>
+    <mapping class="al.ikubinfo.academy.data.entity.DepartmentBrandEntityPK"/>
+        <mapping class="al.ikubinfo.academy.data.entity.ProductBrandEntity"/>
+            <mapping class="al.ikubinfo.academy.data.entity.DepartmentBrandEntity"/>
+              <mapping class="al.ikubinfo.academy.data.entity.SectorEntity"/>
+                <mapping class="al.ikubinfo.academy.data.entity.SectorProductEntity"/>
+                   <mapping class="al.ikubinfo.academy.data.entity.SectorProductEntityPK"/>
+                                   <mapping class="al.ikubinfo.academy.data.entity.SectorProductEntityPK"/>
+               <mapping class="al.ikubinfo.academy.data.entity.SectorStateEntity"/>
+                             <mapping class="al.ikubinfo.academy.data.entity.SectorStateEntityPK"/>
+                                            <mapping class="al.ikubinfo.academy.data.entity.ShopEntity"/>
+               <mapping class="al.ikubinfo.academy.data.entity.ShopProductEntity"/>              
+                              <mapping class="al.ikubinfo.academy.data.entity.ShopProductEntityPK"/>   
+                                             <mapping class="al.ikubinfo.academy.data.entity.StateEntity"/>
+                            <mapping class="al.ikubinfo.academy.data.entity.StateProductEntity"/>     
+                           <mapping class="al.ikubinfo.academy.data.entity.StateProductEntityPK"/> 
+                                        
+                               
+                                                           
+                                         
+               
+                                   
+                
+            
+ </session-factory>
+</hibernate-configuration>

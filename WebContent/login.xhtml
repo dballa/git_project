@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>Login</title>
+<link href="./css/styles.css" rel="stylesheet" type="text/css"/> 
+
+</h:head>
+<h:body>
+
+<h:form >
+    <p:growl id="msgs" showDetail="true" />
+ <div align="center">
+    <fieldset    style="width:34%">
+        <h:panelGrid columns="2" cellpadding="5">
+        <h:outputText value="Email: " />
+          <p:inputText value="#{loginManagedBean.user.email}" />
+          <h:outputText value="Password: " />
+        <p:password id="nonFeedback"  value="#{loginManagedBean.user.password}" />
+        <p:growl id="growl" life="2000" />
+         <p:commandButton value="Login" id="nonAjax" ajax="true" action="#{loginManagedBean.login}" />
+      <div>   <p:commandButton value="Register"  ajax="false"  align="right" /></div>   
+        </h:panelGrid>
+    </fieldset>
+    </div>
+</h:form>
+</h:body>
+</html>
