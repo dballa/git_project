@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:o="http://omnifaces.org/ui"
+	xmlns:of="http://omnifaces.org/functions">
+<h:head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>Error Login</title>
+<link href="./css/styles.css" rel="stylesheet" type="text/css" />
+</h:head>
+<h:body>
+<div class="header">
+  
+</div>
+
+<div class="row">
+  <div class="column side" style="background:transparent;"></div>
+  <div class="column middle" style="background:transparent;">
+  
+  <h2>Username or Password incorrect</h2>
+ <h:form>
+   <p:commandButton value="Try again "  action="#{errorLoginBean.tryAgain}"/>
+  </h:form>
+  
+  </div>
+  <div class="column side" style="background:transparent;"></div>
+</div>
+</h:body>
+</html>

@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:o="http://omnifaces.org/ui"
+	xmlns:of="http://omnifaces.org/functions">
+<h:head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>Brand</title>
+	<link href="./css/styles.css" rel="stylesheet" type="text/css" />
+</h:head>
+
+
+<h:body>
+
+<h:form id="myForm">
+
+<div class="header2">
+			<p:tabMenu activeIndex="#{param.i}">
+				<p:menuitem value="Department" icon="ui-icon-star"
+					url="Admin.xhtml?i=0">
+					<f:param name="i" value="0" />
+				</p:menuitem>
+				<p:menuitem value="Sector" icon="ui-icon-star"
+					action="#{sectorBean.redirectToSector}" url="Sector.xhtml?i=1">
+					<f:param name="i" value="1" />
+				</p:menuitem>
+				<p:menuitem value="Shop" icon="ui-icon-star" action="#{shopBean.redirectToShop}" url="Shop.xhtml?i=2" >
+					<f:param name="i" value="2" />
+				</p:menuitem>
+				<p:menuitem value="Product" icon="ui-icon-star">
+					<f:param name="i" value="3" />
+				</p:menuitem>
+				<p:menuitem value="Shop" icon="ui-icon-star">
+					<f:param name="i" value="4" />
+				</p:menuitem>
+				<p:menuitem value="Users" icon="ui-icon-star">
+					<f:param name="i" value="5" />
+				</p:menuitem>
+				<p:menuitem value="Logout" icon="ui-icon-star" action="#{loginManagedBean.logout}" process="@this">
+        <f:param name="i" value="6" />
+    </p:menuitem>
+			</p:tabMenu>
+		</div>
+
+<div class="column side" style="background: transparent;">
+<h:panelGrid columns="2">
+	<h:outputLabel for="shop" value="Name: "  />
+		<p:inputText id="shopName"
+			value="#{shopBean.filter.name}" />
+			
+			
+			<h:outputLabel for="shopDesc" value="Description: "  />
+		<p:inputText id="shopDesc"
+			value="#{shopBean.filter.description}" />
+</h:panelGrid>			
+		<p:commandButton style="float:right" value="Search" id="ajax"
+			update="shopTable" ajax="true" icon="ui-icon-search"
+			styleClass="ui-priority-primary"
+			action="#{shopBean.searchShop}" /></div>
+
+
+		<div align="center" class="column middle"
+			style="background: transparent;">
+			<p:growl id="growl" showDetail="true" life="2000" />
+
+
+		
+
+
+			<p:dataTable  id="shopTable" var="shop"
+				value="#{shopBean.shops}">
+ <f:facet name="header">
+ Shops
+         <p:commandButton style="position: relative;
+    left: 350px;" value="Add" type="button" onclick="PF('dlg1').show();" />
+    </f:facet>
+
+				<p:column headerText="Name">
+					<h:outputText value="#{shop.shopName}" />
+				</p:column>
+				
+				<p:column headerText="Description">
+					<h:outputText value="#{shop.description}" />
+				</p:column>
+				<p:column headerText="Sector">
+					<h:outputText value="#{shop.sector.sectorName}" />
+				</p:column>
+				<p:column style="width:25%" headerText="ACTIONS">
+				
+					<p:commandButton id="ajax" process="@this" title="Delete"
+						value="Delete" action="#{shopBean.removeShop}"
+						update="shopTable :myForm:growl" ajax="true">
+						<f:setPropertyActionListener value="#{shop}"
+							target="#{shopBean.toDelete}"></f:setPropertyActionListener>
+					</p:commandButton>
+					
+
+					<p:commandButton value="Edit" id="ajax2"
+						action="#{shopBean.redirectToEdit}" process="@this" ajax="false">
+						<f:setPropertyActionListener value="#{shop.shopId}"
+							target="#{shopBean.toEditId}"></f:setPropertyActionListener>
+					</p:commandButton>
+				
+				</p:column>
+
+
+			</p:dataTable>
+		</div>
+
+	</h:form>
+<p:dialog header="Add new Shop" widgetVar="dlg1" minHeight="40">
+	<h:form>
+
+
+<h:panelGrid columns="2">
+			<h:outputLabel for="shopName" value="Shop Name: " />
+			<p:inputText id="shopName" value="#{shopBean.shop.shopName}" />
+			
+
+
+			<h:outputLabel for="shopDesc" value="Shop Description: " />
+			<p:inputText id="shopDesc" value="#{shopBean.shop.description}" />
+			
+
+
+
+
+			<h:outputLabel for="selectSectorToAddShop" value="Select Sector: " />
+			
+			<p:selectOneMenu id="selectSectorToAddShop"
+				value="#{shopBean.shop.sector}" 
+				converter="omnifaces.SelectItemsConverter">
+
+
+				<f:selectItem noSelectionOption="true" itemLabel="Select Sector" />
+				<f:selectItems value="#{shopBean.sectors}" var="dept"
+					itemLabel="#{dept.sectorName}" />
+
+			</p:selectOneMenu>
+			<p:selectOneMenu id="selectStatetoAddShop"
+				value="#{shopBean.shop.state}" 
+				converter="omnifaces.SelectItemsConverter">
+
+
+				<f:selectItem noSelectionOption="true" itemLabel="Select State" />
+				<f:selectItems value="#{shopBean.states}" var="state"
+					itemLabel="#{state.stateName}" />
+
+			</p:selectOneMenu>
+</h:panelGrid>
+<h:panelGrid columns="2" style="float:right">
+
+			<p:commandButton value="Save"
+				action="#{shopBean.addShop}"
+				update="myForm:shopTable"
+				onsuccess="PF('dlg1').hide();"
+				process="@this shopName shopDesc selectSectorToAddShop selectStatetoAddShop" />
+					<p:commandButton value="Close"
+				onclick="PF('dlg1').hide();"/>
+</h:panelGrid>
+
+</h:form>
+	</p:dialog>
+
+
+</h:body>
+</html>

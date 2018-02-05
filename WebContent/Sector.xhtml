@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:o="http://omnifaces.org/ui"
+	xmlns:of="http://omnifaces.org/functions">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>Sector</title>
+	<link href="./css/styles.css" rel="stylesheet" type="text/css" />
+</h:head>
+
+<h:body>
+	<h:form id="myForm">
+
+		<div class="header2">
+			<p:tabMenu activeIndex="#{param.i}">
+				<p:menuitem value="Department" icon="ui-icon-star"
+					url="Admin.xhtml?i=0">
+					<f:param name="i" value="0" />
+				</p:menuitem>
+				<p:menuitem value="Sector" icon="ui-icon-star"
+					action="#{sectorBean.redirectToSector}" url="Sector.xhtml?i=1">
+					<f:param name="i" value="1" />
+				</p:menuitem>
+				<p:menuitem value="Brand" icon="ui-icon-star" action="#{shopBean.redirectToShop}" url="Shop.xhtml?i=2">
+					<f:param name="i" value="2" />
+				</p:menuitem>
+				<p:menuitem value="Product" icon="ui-icon-star">
+					<f:param name="i" value="3" />
+				</p:menuitem>
+				<p:menuitem value="Shop" icon="ui-icon-star">
+					<f:param name="i" value="4" />
+				</p:menuitem>
+				<p:menuitem value="Users" icon="ui-icon-star">
+					<f:param name="i" value="5" />
+				</p:menuitem>
+				<p:menuitem value="Logout" icon="ui-icon-star" action="#{loginManagedBean.logout}" process="@this">
+        <f:param name="i" value="6" />
+    </p:menuitem>
+			</p:tabMenu>
+		</div>
+
+		<div class="column side" style="background: transparent;">
+<h:panelGrid columns="2">
+	<h:outputLabel for="sectorName" value="Name: "  />
+		<p:inputText id="sectorName"
+			value="#{sectorBean.filter.name}" />
+			
+			
+			<h:outputLabel for="sectorDesc" value="Description: "  />
+		<p:inputText id="sectorDesc"
+			value="#{sectorBean.filter.description}" />
+</h:panelGrid>			
+		<p:commandButton style="float:right" value="Search" id="ajax"
+			update="sectorTable" ajax="true" icon="ui-icon-search"
+			styleClass="ui-priority-primary"
+			action="#{sectorBean.searchSector}" /></div>
+
+			
+
+	
+
+		<div align="center" class="column middle"
+			style="background: transparent;">
+			<p:growl id="growl" showDetail="true" life="2000" />
+
+
+		
+
+
+			<p:dataTable  id="sectorTable" var="sector"
+				value="#{sectorBean.sectors}">
+ <f:facet name="header">
+ Sectors
+         <p:commandButton style="position: relative;
+    left: 350px;" value="Add" type="button" onclick="PF('dlg1').show();" />
+    </f:facet>
+
+				<p:column headerText="Name">
+					<h:outputText value="#{sector.sectorName}" />
+				</p:column>
+				
+				<p:column headerText="Description">
+					<h:outputText value="#{sector.description}" />
+				</p:column>
+				<p:column headerText="Department">
+					<h:outputText value="#{sector.department.departmentName}" />
+				</p:column>
+				<p:column style="width:25%" headerText="ACTIONS">
+				
+					<p:commandButton id="ajax" process="@this" title="Delete"
+						value="Delete" action="#{sectorBean.removeSector}"
+						update="sectorTable :myForm:growl" ajax="true">
+						<f:setPropertyActionListener value="#{sector}"
+							target="#{sectorBean.toDelete}"></f:setPropertyActionListener>
+					</p:commandButton>
+					
+
+					<p:commandButton value="Edit" id="ajax2"
+						action="#{sectorBean.redirectToEdit}" process="@this" ajax="false">
+						<f:setPropertyActionListener value="#{sector.sectorId}"
+							target="#{sectorBean.toEditId}"></f:setPropertyActionListener>
+					</p:commandButton>
+				
+				</p:column>
+
+
+			</p:dataTable>
+		</div>
+
+	</h:form>
+	
+	<p:dialog header="Add new sector" widgetVar="dlg1" minHeight="40">
+	<h:form>
+
+
+<h:panelGrid columns="2">
+			<h:outputLabel for="sectorName" value="Sector Name: " />
+			<p:inputText id="sectorName" value="#{sectorBean.sector.sectorName}" />
+			
+
+
+			<h:outputLabel for="sectorDesc" value="Sector Description: " />
+			<p:inputText id="sectorDesc" value="#{sectorBean.sector.description}" />
+			
+
+
+
+
+			<h:outputLabel for="selectDepToAddSector" value="Select Department: " />
+			
+			<p:selectOneMenu id="selectDepToAddSector"
+				value="#{sectorBean.sector.department}" 
+				converter="omnifaces.SelectItemsConverter">
+
+
+				<f:selectItem noSelectionOption="true" itemLabel="Select Department" />
+				<f:selectItems value="#{sectorBean.departments}" var="dept"
+					itemLabel="#{dept.departmentName}" />
+
+			</p:selectOneMenu>
+</h:panelGrid>
+<h:panelGrid columns="2" style="float:right">
+
+			<p:commandButton value="Save"
+				action="#{sectorBean.addSector}"
+				update="myForm:sectorTable"
+				onsuccess="PF('dlg1').hide();"
+				process="@this sectorName sectorDesc selectDepToAddSector" />
+					<p:commandButton value="Close"
+				onclick="PF('dlg1').hide();"/>
+</h:panelGrid>
+
+</h:form>
+	</p:dialog>
+	
+</h:body>
+</html>

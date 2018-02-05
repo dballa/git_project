@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>Register</title>
+<link href="./css/styles.css" rel="stylesheet" type="text/css" />
+</h:head>
+<h:body>
+
+<div class="row">
+<div class="header5">
+ 
+</div>
+ <div class="column side1" style="background:transparent"></div>
+ 
+  <div class="column side1" style="background:transparent"></div>
+<div class="column middle" style="background:transparent">
+
+<p:growl id="growl" showDetail="true" life="2000" />
+<h:form id="myForm">
+ <div class="container">
+ <p:outputLabel for="userName" value="Name:"  />
+		<p:inputText id="userName" required="true" requiredMessage="Name is required"
+			value="#{userManagedBean.user.emri}" />  <br/>
+			
+			<p:outputLabel for="userSurname" value="Surname: "  />
+		<p:inputText id="userSurname" requiredMessage="Surname is required"
+			value="#{userManagedBean.user.mbiemri}" required="true"/> 
+			
+			<p:outputLabel for="userEmail" value="Email: "  />
+		<p:inputText id="userEmail" requiredMessage="Email is required"
+			value="#{userManagedBean.user.email}" required="true" />  
+			
+			<p:outputLabel for="password" value="Password: "  />
+		<p:password id="password"
+			value="#{userManagedBean.user.password}" required="true" requiredMessage="Password is required"/>  
+			
+			
+			
+				<p:commandButton value="Register new User" id="ajax"  icon="ui-icon-disk"
+			update="growl" ajax="true"
+			styleClass="ui-priority-primary"
+			action="#{userManagedBean.addUser}" process="@this"/> 
+		</div>
+</h:form>
+
+</div>
+ <div class="column side" style="background:transparent"></div>
+</div>
+
+
+
+
+
+</h:body>
+
+
+
+</html>

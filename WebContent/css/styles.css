@@ -1,73 +1,109 @@
 body {
   background-image: url("background.jpg"); 
 }
-a:hover { 
-  color: red
-}
-h1,h2,h3 {
-  text-align: center;
-  font-family: Verdana, Arial, Helvetica, sans-serif;
-  color: black;
-}
-h1.title {
-  display: table;
-  margin: auto;
-  background-color: #afc4d6;
-  border-width: 4px;
-  border-style: outset;
-  border-color: #9fd1ff;
-  padding: 5px 8px;
-  letter-spacing: -.025em;
-} 
-.formTable {
-  display: table;
-}
-/* If prompt and input are in two cells of one row, the prompt will be R-aligned. */
-.formTable td:first-child {
-  text-align: right;
-}
-/* Third table cell shows the error message, so make it bold and red. Used in validation examples that have h:message. */
-.formTable td:nth-child(3) {
-  color: red;
-  font-weight: bold;
-}
-th { background-color: #afc4d6;
-     font-size: 110%;
-     font-family: Arial, Helvetica, sans-serif;
-}
-legend {
-  font-weight: bold;
-  color: black;
-  background-color: #afc4d6;
-  border: 1px solid #1a55bf;
-  padding: 3px 5px;
-  border-radius: 3px;
+
+  .container {
+        width: 250px;
+        clear: both;
+    }
+    .container input {
+        width: 100%;
+        clear: both;
+    }
+
+
+
 }
 fieldset {
   border-radius: 6px;
   display: block;
-  background: transparent
+  background: transparent;
  
-}
-input, textarea {
-  background-color: #ecedf2;
-  text-align: left;
-}
-input[type="checkbox"] {
-  background-color: transparent;  /* For IE 7-9 -- doesn't matter in FF, Chrome, or IE 10+ */
-}
-input[type="text"]:focus, input[type="password"]:focus, textarea:focus {
-  background-color: #9fd1ff;
-}
-.error {
-  color: red;
-  font-weight: bold;
-}
-/* So that in Chrome and IE, the bullets are next to the text in centered lists. Already OK in Firefox. */
-[align="center"] li {
-  list-style-position: inside;
+
 }
 fieldset{
 	style="width:30%"
 }
+
+{
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Style the header */
+.header {
+	 background-image: url("braaand.png");
+   background-repeat: repeat-y;
+    background-position: center; 
+    padding: 108px;
+    text-align: center;
+    font-size: 35px;
+}
+.header1 {
+	 background-image: url("braad.png");
+   background-repeat: repeat-y;
+    background-position: center; 
+    padding: 20px;
+    text-align: center;
+    font-size: 15px;
+}
+
+    .header5 {
+	 background-image: url("braaand.png");
+   background-repeat: repeat-y;
+    background-position: center; 
+    padding: 120px;
+    text-align: center;
+    font-size: 15px;
+}
+/* Create three unequal columns that floats next to each other */
+.column {
+    float: left;
+    padding: 10px;
+    
+}
+
+/* Left and right column */
+.column.side {
+    width: 25%;
+}
+.column.side1 {
+    width: 5%;
+}
+
+
+/* Middle column */
+.column.middle {
+    width: 70%;
+    position: center;
+}
+.column.middle1 {
+    width: 40%;
+    position: center;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Style the footer */
+.footer {
+    background:transparent;
+    padding: 10px;
+    text-align: center;
+}
+
+/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+@media (max-width: 600px) {
+    .column.side, .column.middle {
+        width: 100%;
+    }
+    
+    
 

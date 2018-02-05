@@ -11,14 +11,19 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import al.ikubinfo.academy.dao.DepartmentDao;
-import al.ikubinfo.academy.data.entity.DepartmentEntity;
+import al.ikubinfo.academy.dao.DepartmentSearchFilter;
+import al.ikubinfo.academy.entity.DepartmentEntity;
 
 @ManagedBean
 @ViewScoped
 public class DepartmentManagedBean implements java.io.Serializable {
 
 	private DepartmentEntity department;
+
+	private DepartmentSearchFilter filter;
 	
+	private int toEditId;
+
 	private DepartmentEntity toDelete;
 
 	private List<DepartmentEntity> departments;
@@ -28,16 +33,22 @@ public class DepartmentManagedBean implements java.io.Serializable {
 	public DepartmentManagedBean() {
 		departmentDao = new DepartmentDao();
 		department = new DepartmentEntity();
-		toDelete=new DepartmentEntity();
+		toDelete = new DepartmentEntity();
+		filter=new DepartmentSearchFilter();
 	}
 
 	@PostConstruct
 	public void init() {
 
-		departments = allDepartment();
+		departments = departmentDao.searchDepartments(filter);
 
 	}
 
+	public void search() {
+		departments = departmentDao.searchDepartments(filter);
+		
+	}
+	
 	public List<DepartmentEntity> getDepartments() {
 		return departments;
 	}
@@ -57,35 +68,37 @@ public class DepartmentManagedBean implements java.io.Serializable {
 	public List<DepartmentEntity> allDepartment() {
 
 		List<DepartmentEntity> deparmtents = departmentDao.allDepartment();
-		
+
 		return deparmtents;
 
 	}
 
 	public void addDepartment() {
 		departmentDao.addDepartment(department);
-		departments=departmentDao.allDepartment();
+		departments = departmentDao.allDepartment();
 		FacesContext context = FacesContext.getCurrentInstance();
-        
-        context.addMessage(null, new FacesMessage("Sukses",  "Departamenti " + department.getDepartmentName() + " u shtua") );
+
+		context.addMessage(null,
+				new FacesMessage("Succesfult", "Department " + department.getDepartmentName() + " added"));
 
 	}
-	
+
 	public void redirectToEdit() throws IOException {
 		FacesContext fContext = FacesContext.getCurrentInstance();
 		ExternalContext extContext = fContext.getExternalContext();
-		extContext.redirect(extContext.getRequestContextPath() + "/edit.xhtml");
-		System.out.println("REDU");
-		
+		extContext.redirect(extContext.getRequestContextPath() + "/edit.xhtml?id="+toEditId);
+		System.out.println("REDU"+toEditId);
+
 	}
-	
+
 	public void removeDepartment() {
 		toDelete.setValidity((byte) 0);
 		departmentDao.removeDepartment(toDelete);
-		departments=departmentDao.allDepartment();
+		departments = departmentDao.allDepartment();
 		FacesContext context = FacesContext.getCurrentInstance();
-        
-        context.addMessage(null, new FacesMessage("Sukses",  "Departamenti " + toDelete.getDepartmentName() + " u fshi") );
+
+		context.addMessage(null,
+				new FacesMessage("Sukses", "Departamenti " + toDelete.getDepartmentName() + " u fshi"));
 	}
 
 	public DepartmentEntity getToDelete() {
@@ -94,5 +107,21 @@ public class DepartmentManagedBean implements java.io.Serializable {
 
 	public void setToDelete(DepartmentEntity toDelete) {
 		this.toDelete = toDelete;
+	}
+
+	public int getToEditId() {
+		return toEditId;
+	}
+
+	public void setToEditId(int toEditId) {
+		this.toEditId = toEditId;
+	}
+
+	public DepartmentSearchFilter getFilter() {
+		return filter;
+	}
+
+	public void setFilter(DepartmentSearchFilter filter) {
+		this.filter = filter;
 	}
 }
